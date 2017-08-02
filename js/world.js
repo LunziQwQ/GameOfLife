@@ -6,6 +6,49 @@ var rule = new Rule();
 var world = new World();
 var template = new Template();
 
+window.addEventListener('mousedown', function (event) {
+    console.log('down');
+    var mousePos = getMousePos(event);
+    var canvasElement = document.getElementById("world");
+    var elementPos = {
+        x1: canvasElement.getBoundingClientRect().left + 10,
+        y1: canvasElement.getBoundingClientRect().top + 10,
+        x2: canvasElement.getBoundingClientRect().left + canvasElement.width + 10,
+        y2: canvasElement.getBoundingClientRect().top + canvasElement.height + 10
+    };
+    if(mousePos.x >= elementPos.x1 && mousePos.x <= elementPos.x2 &&
+        mousePos.y >= elementPos.y1 && mousePos.y <= elementPos.y2){
+
+        $("#world").bind('mousemove', function () {
+            console.log('move');
+            var pos = getMousePos();
+            if(pos.x >= elementPos.x1 && pos.x <= elementPos.x2 &&
+                pos.y >= elementPos.y1 && pos.y <= elementPos.y2){
+                var worldCoord = {
+                    x: Math.floor((pos.x - elementPos.x1) / 10),
+                    y: Math.floor((pos.y - elementPos.y1) / 10)
+                };
+                world.setCoordLive(worldCoord);
+            }
+        });
+    }
+});
+window.addEventListener('mouseup', function () {
+    $("#world").unbind("mousemove");
+    console.log("up")
+});
+$("#world").bind('mouseleave', function () {
+    $("#world").unbind("mousemove");
+});
+
+function getMousePos(event) {
+    var e = event || window.event;
+    var x = e.clientX;
+    var y = e.clientY;
+    return { 'x': x, 'y': y };
+}
+
+
 template.updateTemplateList();
 world.init();
 function World() {
@@ -15,6 +58,7 @@ function World() {
     var template = "Random";
 
     this.getSpace = function() {return space;};
+    this.setCoordLive = function (coord) {setStatus(coord, true);console.log('set')};
     this.init = function () {
         clearWorld();
         space = new Array(size);
@@ -77,8 +121,6 @@ function World() {
                 setStatus({x:i,y:j},temp[i][j].isLive);
             }
         }
-
-
         if(running)
             setTimeout(updateSpace,delay.value[delay.mode]);
     };
@@ -99,6 +141,7 @@ function World() {
 
     this.templateOnChange = function (value) {
         template = value;
+        this.onResetClick();
     };
 
     this.onResetClick = function () {
@@ -107,3 +150,4 @@ function World() {
         setTimeout(world.init,delay.value[delay.mode]+10);//等待settimeout的更新方法停止再重置世界。
     };
 }
+

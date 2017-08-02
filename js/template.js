@@ -12,7 +12,8 @@ function Template() {
         "OneLine_2":new oneLine2(),
         "OneLine_3":new oneLine3(),
         "Century(103)":new century(),
-        "SitDown(2000+)":new sitDown()
+        "SitDown(2000+)":new sitDown(),
+        "empty":new empty()
     };
 
     function gliderGun() {
@@ -84,6 +85,10 @@ function Template() {
         this.offsetCoord = {x: 10, y: 10};
     }
 
+    function empty() {
+        this.liveList = [];
+        this.offsetCoord = {x: 0, y: 0};
+    }
 
 
 

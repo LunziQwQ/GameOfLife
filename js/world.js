@@ -5,9 +5,11 @@
 var rule = new Rule();
 var world = new World();
 var template = new Template();
+$("#world")[0].oncontextmenu = function () {
+    return false;
+};
 
 window.addEventListener('mousedown', function (event) {
-    console.log('down');
     var mousePos = getMousePos(event);
     var canvasElement = document.getElementById("world");
     var elementPos = {
@@ -18,9 +20,12 @@ window.addEventListener('mousedown', function (event) {
     };
     if(mousePos.x >= elementPos.x1 && mousePos.x <= elementPos.x2 &&
         mousePos.y >= elementPos.y1 && mousePos.y <= elementPos.y2){
-
+        var xx = {
+            x: Math.floor((mousePos.x - elementPos.x1) / 10),
+            y: Math.floor((mousePos.y - elementPos.y1) / 10)
+        };
+        world.setCoordStatus(xx,event.buttons == 1);
         $("#world").bind('mousemove', function () {
-            console.log('move');
             var pos = getMousePos();
             if(pos.x >= elementPos.x1 && pos.x <= elementPos.x2 &&
                 pos.y >= elementPos.y1 && pos.y <= elementPos.y2){
@@ -28,14 +33,13 @@ window.addEventListener('mousedown', function (event) {
                     x: Math.floor((pos.x - elementPos.x1) / 10),
                     y: Math.floor((pos.y - elementPos.y1) / 10)
                 };
-                world.setCoordLive(worldCoord);
+                world.setCoordStatus(worldCoord,event.buttons == 1);
             }
         });
     }
 });
 window.addEventListener('mouseup', function () {
     $("#world").unbind("mousemove");
-    console.log("up")
 });
 $("#world").bind('mouseleave', function () {
     $("#world").unbind("mousemove");
@@ -58,7 +62,7 @@ function World() {
     var template = "Random";
 
     this.getSpace = function() {return space;};
-    this.setCoordLive = function (coord) {setStatus(coord, true);console.log('set')};
+    this.setCoordStatus = function (coord, isLive) {setStatus(coord, isLive);};
     this.init = function () {
         clearWorld();
         space = new Array(size);

@@ -11,7 +11,7 @@
 </div>
 
 <div>
-<canvas id="world" width="500px" height="500px">
+<canvas id="world">
     <p>你的浏览器不支持canvas绘图哦，要换个浏览器才能看到QAQ</p>
 
 </canvas>
@@ -19,23 +19,23 @@
 
 <div id="config">
     <span class="text">TimeSpeed:</span>
-    <select name="speed" id="speed" onchange="world.speedOnChange(value)">
-        <option value="0">Slow</option>
-        <option value="1" selected = "selected">Normal</option>
-        <option value="2">Fast</option>
-    </select>
+    <input type="range" name="speed" id="speed" onchange="world.speedOnChange(value)" onmousemove="world.speedOnChange(value)">
     <br>
     <span class="text">Density:</span>
-    <select name="density" id="density" >
-        <option value="0">Low</option>
-        <option value="1">Normal</option>
-        <option value="2">High</option>
-    </select>
+    <input type="number" name="density" id="density" onchange="world.densityOnChange(value)" step="0.05">
     <br>
     <span class="text">Template</span>
     <select name="template" id="template" onchange="world.templateOnChange(value)">
         <option value="Random">Random</option>
     </select>
+    <br>
+    <span class="text">WorldSize</span>
+    <input type="number" name="world_size" id="world_size"  onchange="world.worldSizeOnChange(value)" step="100">
+    <br>
+    <span class="text">CellSize</span>
+    <input type="number" name="cell_size" id="cell_size" onchange="world.cellSizeOnChange(value)" step="1">
+
+
 </div>
 
 <div id="btns">

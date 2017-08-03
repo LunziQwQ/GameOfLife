@@ -3,24 +3,47 @@
  */
 "use strict";
 
-var size = 50;
-var MIN_SIZE = 50;
 
 var cellSize = 10;
-var MAX_CELLSIZE = 20;
-var MIN_CELLSIZE = 2;
+var MAX_CELLSIZE = 10;
+var MIN_CELLSIZE = 5;
 
-var worldSize = size*cellSize;
+var worldSize = 500;
 var MAX_WORLDSIZE = 1000;
 var MIN_WORLDSIZE = 500;
 
+var size = Math.round(worldSize/cellSize);
 
-var density = {value: [300, 500, 1000], mode: 0};    //初始生物密度
-// var density = 300;
-var MAX_DENSITY = 1000;
-var MIN_DENSITY = 300;
+var density = 0.2;
+var MAX_DENSITY = 0.4;
+var MIN_DENSITY = 0.15;
 
-var delay = {value: [500, 200, 50], mode:1};      //刷新间隔，单位ms
-// var delay = 200;
-var MAX_DELAY = 500;
-var MIN_DELAY = 50;
+var delay = 300;
+var MAX_DELAY = 1000;
+var MIN_DELAY = 30;
+
+var speed = Math.floor(1000 / delay);
+var MAX_SPEED = Math.floor(1000 / MIN_DELAY);
+var MIN_SPEED = Math.floor(1000 / MAX_DELAY);
+
+applyConfig();
+
+function applyConfig() {
+    $("#speed").attr("max", MAX_SPEED);
+    $("#speed").attr("min", MIN_SPEED);
+    $("#speed").attr("value", speed);
+
+
+    $("#density").attr("max", MAX_DENSITY);
+    $("#density").attr("min", MIN_DENSITY);
+    $("#density").attr("value", density);
+
+
+    $("#world_size").attr("max", MAX_WORLDSIZE);
+    $("#world_size").attr("min", MIN_WORLDSIZE);
+    $("#world_size").attr("value", worldSize);
+
+    $("#cell_size").attr("max", MAX_CELLSIZE);
+    $("#cell_size").attr("min", MIN_CELLSIZE);
+    $("#cell_size").attr("value", cellSize);
+}

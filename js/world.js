@@ -25,7 +25,7 @@ window.addEventListener('mousedown', function () {
 
 //绘制当前鼠标所在的点的Cell
 function drawMousePos() {
-    var elementPos = world.elementPos;
+    var elementPos =world.getCanvasElementPos();
     var mousePos = getMousePos(event);
     if(mousePos.x >= elementPos.x1 && mousePos.x <= elementPos.x2 &&
         mousePos.y >= elementPos.y1 && mousePos.y <= elementPos.y2) {
@@ -62,7 +62,6 @@ function World() {
     var isRunning = false;                          //初始游戏状态
     var template = "Random";                        //初始模板
 
-    this.elementPos = getCanvasElementPos();        //Canvas元素位置坐标
     this.getSpace = function () {return space;}     //space getter
     this.setCoordStatus = function (coord, isLive) {setStatus(coord, isLive);};
 
@@ -70,14 +69,14 @@ function World() {
      * 获取当前Canvas元素位置
      * @returns {{x1: number coord x1, y1: number coord x2, x2: number coord y1, y2: number coord y2}}
      */
-    function getCanvasElementPos() {
+    this.getCanvasElementPos = function () {
         return {
             x1: canvasElement.getBoundingClientRect().left + 10,
             y1: canvasElement.getBoundingClientRect().top + 10,
             x2: canvasElement.getBoundingClientRect().left + canvasElement.width + 10,
             y2: canvasElement.getBoundingClientRect().top + canvasElement.height + 10
         };
-    }
+    };
 
     /**
      * 初始化Canvas元素，控件及模板菜单，更新Canvas元素位置
@@ -85,7 +84,7 @@ function World() {
     this.init = function () {
         canvasElement.height = worldSize;
         canvasElement.width = worldSize;
-
+        size = Math.round(worldSize/cellSize);
         clearWorld();
         space = new Array(size);
         for(var i = 0; i < size; i++){
@@ -95,12 +94,11 @@ function World() {
             }
         }
         if(template ==="Random")
-            for(var i = 0; i < density.value[density.mode]; i++)
+            for(var i = 0; i < density * size * size; i++)
                 setStatus(getRandomCoord(),true);
         else
             initTemplate(template);
 
-        this.elementPos = getCanvasElementPos();
     };
 
     /**
@@ -173,7 +171,7 @@ function World() {
             }
         }
         if(isRunning)
-            setTimeout(updateSpace,delay.value[delay.mode]);
+            setTimeout(updateSpace,delay);
     };
 
     /**
@@ -197,7 +195,7 @@ function World() {
      * @param value delay编号
      */
     this.speedOnChange = function (value) {
-        delay.mode = value;
+        delay = Math.floor(1000 / value);
     };
 
     /**
@@ -213,9 +211,40 @@ function World() {
      * 重置World并将游戏状态设为暂停
      */
     this.onResetClick = function () {
-        density.mode = $("#density").val();
         isRunning = false;
-        setTimeout(world.init,delay.value[delay.mode]+10);//等待settimeout的更新方法停止再重置世界。
+        density = $("#density").val();
+        setTimeout(world.init,delay+10);//等待settimeout的更新方法停止再重置世界。
+    };
+
+    /**
+     * 更新随机密度并重置world
+     * @param value
+     */
+    this.densityOnChange = function (value) {
+        if(value>MAX_DENSITY) $("#density").val(MAX_DENSITY);
+        if(value<MIN_DENSITY) $("#density").val(MIN_DENSITY);
+    };
+
+    /**
+     * 更新world大小并重置world
+     * @param value
+     */
+    this.worldSizeOnChange = function (value) {
+        if(value>MAX_WORLDSIZE) $("#world_size").val(MAX_WORLDSIZE);
+        if(value<MIN_WORLDSIZE) $("#world_size").val(MIN_WORLDSIZE);
+        worldSize = $("#world_size").val();
+        this.onResetClick();
+    };
+
+    /**
+     * 更新Cell大小并重置world
+     * @param value
+     */
+    this.cellSizeOnChange = function (value) {
+        if(value>MAX_CELLSIZE) $("#cell_size").val(MAX_CELLSIZE);
+        if(value<MIN_CELLSIZE) $("#cell_size").val(MIN_CELLSIZE);
+        cellSize = $("#cell_size").val();
+        this.onResetClick();
     };
 }
 

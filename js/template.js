@@ -89,7 +89,7 @@ function Template() {
         this.offsetCoord = {x: 0, y: 0};
     }
 
-    
+
     this.updateTemplateList = function(){
         for(var x in this.templateList) {
             $("#template").append("<option value='"+x+"'>"+x+"</option>");

@@ -7,7 +7,7 @@
 </head>
 <body>
 <div id="title">
-    <p>Game of life（鼠标点击可干涉哦）</p>
+    <p>Game of life &nbsp;&nbsp; <a href="LifeWorld_cn.html">（中文版）</a></p>
 </div>
 
 <div>
@@ -16,45 +16,49 @@
 
 </canvas>
 </div>
+<p style="margin: 10px 50px;font-size: 20px;color:#82ff17 ;">Tips:Use the mouse left/right click or drag can make cell live/die.</p>
 
-<div id="config">
-    <span class="text">TimeSpeed:</span>
+<div id="worldCtrl">
+    <div class="btn" id="btn_start" onclick="world.onStartClick()">Start</div>
+    <div class="btn" id="btn_pause" onclick="world.onPauseClick()">Pause</div>
+    <span class="text">RunSpeed:</span>
     <input type="range" name="speed" id="speed" onchange="world.speedOnChange(value)" onmousemove="world.speedOnChange(value)">
     <br>
+
+    <span class="text">WorldSize:</span>
+    <input type="number" name="world_size" id="world_size"  onchange="world.worldSizeOnChange(value)" step="100">
+    <br>
+    <span class="text">CellSize:</span>
+    <input type="number" name="cell_size" id="cell_size" onchange="world.cellSizeOnChange(value)" step="1">
+
+    <br>
+    <br>
+</div>
+
+<div id="randomCtrl">
+    <div id="btn_reset" class="btn" onclick="world.onResetClick()">Reset World</div>
     <span class="text">Density:</span>
+
     <input type="number" name="density" id="density" onchange="world.densityOnChange(value)" step="0.05">
     <br>
-    <span class="text">Template</span>
+    <span class="text">Template:</span>
     <select name="template" id="template" onchange="world.templateOnChange(value)">
         <option value="Random">Random</option>
     </select>
     <br>
-    <span class="text">WorldSize</span>
-    <input type="number" name="world_size" id="world_size"  onchange="world.worldSizeOnChange(value)" step="100">
     <br>
-    <span class="text">CellSize</span>
-    <input type="number" name="cell_size" id="cell_size" onchange="world.cellSizeOnChange(value)" step="1">
-
-
-</div>
-
-<div id="btns">
-    <div id="btn_reset" class="btn" onclick="world.onResetClick()">Reset World</div>
-
-    <div class="btn" onclick="world.onStartClick()">Start</div>
-    <div class="btn" onclick="world.onPauseClick()">Pause</div>
 </div>
 
 <div id="introduction">
-    <p>生命游戏是一个通过方块模拟的世界，每一个方格都是一个细胞，细胞有两种状态-存活或死亡（黑色为存活，白色为死亡）。</p>
-    <p>每个细胞与以自身为中心的周围八格细胞产生互动，互动规则如下：</p>
+    <p>The universe of the Game of Life is an infinite two-dimensional orthogonal grid of square cells, each of which is in one of two possible states, alive or dead, or "populated" or "unpopulated". </p>
+    <p>Every cell interacts with its eight neighbours, which are the cells that are horizontally, vertically, or diagonally adjacent. At each step in time, the following transitions occur(B3/S23)：</p>
     <ol>
-        <li>当前细胞为存活状态时，当周围低于2个（不包含2个）存活细胞时， 该细胞变成死亡状态。（模拟生命数量稀少）</li>
-        <li>当前细胞为存活状态时，当周围有2个或3个存活细胞时， 该细胞保持原样。</li>
-        <li>当前细胞为存活状态时，当周围有3个以上的存活细胞时，该细胞变成死亡状态。（模拟生命数量过多）</li>
-        <li>当前细胞为死亡状态时，当周围有3个存活细胞时，该细胞变成存活状态。 （模拟繁殖）</li>
+        <li>Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.</li>
+        <li>Any live cell with two or three live neighbours lives on to the next generation.</li>
+        <li>Any live cell with more than three live neighbours dies, as if by overpopulation.</li>
+        <li>Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.</li>
     </ol>
-    <p>让我们看看这简单的规则可以做些什么吧~</p>
+    <p>Let me see the usual rules can do.~</p>
     <p>Enjoy yourself~</p>
 
 </div>

@@ -1,5 +1,8 @@
-body{
-    font-family:Consolas;
+body {
+    font-family: Consolas;
+    background: url("../img/background.jpg") no-repeat;
+    background-size: cover;
+    color: #00d980;
 }
 
 #title{
@@ -8,47 +11,58 @@ body{
     margin: 20px 0 0 50px;
 }
 
-#title p{
+#title p a{
+    color: #00d980;
     margin:20px 0 0 0;
 }
 
-#world{
-    border:solid black 3px;
-    padding:10px;
-    /*width:500px;*/
-    /*height:500px;*/
-    margin:20px 50px 20px 50px;
+#world {
+    border: solid #00d980 10px;
+    border-radius: 10px;
+    box-shadow: #003d24 -15px 15px 5px;
+    padding: 10px;
+    margin: 20px 50px 20px 50px;
+    background-color: #85d449;
+
 }
 
 .btn {
-    border: solid grey 2px;
+    border: solid #82ff17 2px;
     font-size: 30px;
     padding: 10px;
     margin: 5px;
-    width:80px;
+    width: 80px;
+    float: right;
+    text-align: center;
 }
 
-#btns{
-    margin: 20px 50px 20px 10px;
-    border: solid grey 1px;
-    float: left;
-    padding:5px;
-    width:230px;
+#randomCtrl{
+    margin: 20px 10px 20px 50px;
+    border: solid #82ff17 1px;
+    padding:10px;
+    width:500px;
 }
 #btn_reset{
-    height: auto;
-    float: right;
+    width: 195px;
+    height: 33px;
 }
 
-#config{
-    border: solid grey 1px;
-    padding:10px;
+#btn_pause {
+    height: 65px;
+}
+
+#btn_start {
+    height: 65px;
+}
+
+#worldCtrl {
+    border: solid #82ff17 1px;
+    padding: 10px;
     margin: 20px 10px 20px 50px;
-    float: left;
-    clear: both;
+    width:500px;
 }
 
-#config select{
+#worldCtrl select{
     margin:5px 0;
     font-size: 25px;
 }

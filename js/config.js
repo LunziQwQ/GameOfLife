@@ -15,8 +15,8 @@ var MIN_WORLDSIZE = 500;
 var size = Math.round(worldSize/cellSize);
 
 var density = 0.2;
-var MAX_DENSITY = 0.4;
-var MIN_DENSITY = 0.15;
+var MAX_DENSITY = 1.0;
+var MIN_DENSITY = 0.00;
 
 var delay = 300;
 var MAX_DELAY = 1000;

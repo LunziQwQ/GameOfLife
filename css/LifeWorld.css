@@ -3,17 +3,25 @@ body {
     background: url("../img/background.jpg") no-repeat;
     background-size: cover;
     color: #00d980;
+    text-align: center;
 }
 
+#introduction p{text-align: left}
+
 #title{
+    color: #dbffdb;
     font-family:Georgia;
-    font-size: 40px;
+    font-size: 50px;
     margin: 20px 0 0 50px;
 }
 
 #title p a{
-    color: #00d980;
+    color: #dbffdb;
     margin:20px 0 0 0;
+}
+
+#title a:hover {
+    color: #74e9e9;
 }
 
 #world {
@@ -22,7 +30,7 @@ body {
     box-shadow: #003d24 -15px 15px 5px;
     padding: 10px;
     margin: 20px 50px 20px 50px;
-    background-color: #85d449;
+    background-color: #9bce99;
 
 }
 
@@ -37,10 +45,11 @@ body {
 }
 
 #randomCtrl{
-    margin: 20px 10px 20px 50px;
+    margin: 20px auto;
     border: solid #82ff17 1px;
     padding:10px;
     width:500px;
+    text-align: left;
 }
 #btn_reset{
     width: 195px;
@@ -58,8 +67,9 @@ body {
 #worldCtrl {
     border: solid #82ff17 1px;
     padding: 10px;
-    margin: 20px 10px 20px 50px;
+    margin: 20px auto;
     width:500px;
+    text-align: left;
 }
 
 #worldCtrl select{
@@ -73,7 +83,21 @@ body {
 
 #introduction{
     font-size: 20px;
-    margin:10px 50px;
+    margin:10px auto;
     width:500px;
     clear: both;
+    text-align: left;
+}
+
+#footer {
+    margin: 100px auto 20px auto;
+    font-size: 20px;
+    width: 800px;
+    color: #dbffdb;
+}
+#footer a{
+    color: #96ff9c;
+}
+#footer a:hover {
+    color: #74e9e9;
 }

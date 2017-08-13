@@ -71,10 +71,10 @@ function World() {
      */
     this.getCanvasElementPos = function () {
         return {
-            x1: canvasElement.getBoundingClientRect().left + 10,
-            y1: canvasElement.getBoundingClientRect().top + 10,
-            x2: canvasElement.getBoundingClientRect().left + canvasElement.width + 10,
-            y2: canvasElement.getBoundingClientRect().top + canvasElement.height + 10
+            x1: canvasElement.getBoundingClientRect().left + 20,
+            y1: canvasElement.getBoundingClientRect().top + 20,
+            x2: canvasElement.getBoundingClientRect().left + canvasElement.width + 20,
+            y2: canvasElement.getBoundingClientRect().top + canvasElement.height + 20
         };
     };
 
@@ -167,7 +167,8 @@ function World() {
         }
         for(var i = 0; i < size; i++){
             for (var j = 0; j < size; j++){
-                setStatus({x:i,y:j},temp[i][j].isLive);
+                if(space[i][j].isLive !== temp[i][j].isLive)
+                    setStatus({x:i,y:j},temp[i][j].isLive);
             }
         }
         if(isRunning)

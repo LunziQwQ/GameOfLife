@@ -90,7 +90,7 @@ function World() {
         for(var i = 0; i < size; i++){
             space[i] = new Array(size);
             for(var j = 0; j < size; j++){
-                space[i][j] = {isLive:false};
+                space[i][j] = {isLive:false, needChange:false};
             }
         }
         if(template ==="Random")
@@ -99,6 +99,11 @@ function World() {
         else
             initTemplate(template);
 
+        // for(var i = 0; i< size; i++) {
+        //     for(var j = 0; j < size; j++) {
+        //         if(space[i][j].isLive) nowLiveList.add({x: i, y: j});
+        //     }
+        // }
     };
 
     /**
@@ -158,19 +163,20 @@ function World() {
      * 绘制一次world，若游戏状态为开始，按照指定delay不断刷新world
      */
     var updateSpace = function () {
-        var temp = {};
-        $.extend(true,temp,space);
+        var temp = new Array(0);
         for(var i = 0; i < size; i++){
             for (var j = 0; j < size; j++){
-                temp[i][j].isLive = rule.check({x:i,y:j});
+                if(space[i][j].isLive !== rule.check({x:i,y:j})) {
+                    space[i][j].needChange = true;
+                    temp.push({x: i, y: j});
+                }
             }
         }
-        for(var i = 0; i < size; i++){
-            for (var j = 0; j < size; j++){
-                if(space[i][j].isLive !== temp[i][j].isLive)
-                    setStatus({x:i,y:j},temp[i][j].isLive);
-            }
-        }
+        temp.forEach(function (item) {
+            setStatus(item, !space[item.x][item.y].isLive);
+            space[item.x][item.y].needChange = false;
+        });
+        
         if(isRunning)
             setTimeout(updateSpace,delay);
     };

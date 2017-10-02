@@ -62,7 +62,14 @@ function World() {
     var isRunning = false;                          //初始游戏状态
     var template = "Random";                        //初始模板
 
-    this.getSpace = function () {return space;}     //space getter
+
+    var nearCoord = [
+        [-1,-1],[0,-1],[1,-1],
+        [-1,0],[1,0],
+        [-1,1],[0,1],[1,1]
+    ];
+
+    this.getSpace = function () {return space;};     //space getter
     this.setCoordStatus = function (coord, isLive) {setStatus(coord, isLive);};
 
     /**
@@ -90,7 +97,7 @@ function World() {
         for(var i = 0; i < size; i++){
             space[i] = new Array(size);
             for(var j = 0; j < size; j++){
-                space[i][j] = {isLive:false, needChange:false};
+                space[i][j] = {isLive:false, needChange:false, nearCount:0};
             }
         }
         if(template ==="Random")
@@ -99,11 +106,6 @@ function World() {
         else
             initTemplate(template);
 
-        // for(var i = 0; i< size; i++) {
-        //     for(var j = 0; j < size; j++) {
-        //         if(space[i][j].isLive) nowLiveList.add({x: i, y: j});
-        //     }
-        // }
     };
 
     /**
@@ -131,11 +133,23 @@ function World() {
      * @param isLive Cell状态
      */
     var setStatus = function(coord, isLive){
+        for(var i = 0; i < 8; i++){
+            var tempX = coord.x + nearCoord[i][0];
+            var tempY = coord.y + nearCoord[i][1];
+            if(coordIsLegel(tempX,tempY))
+                space[tempX][tempY].nearCount += isLive ? 1 : -1;
+        }
+
         space[coord.x][coord.y].isLive = isLive;
         if (isLive)
             canvas.fillRect(coord.x*cellSize,coord.y*cellSize,cellSize,cellSize);
         else
             canvas.clearRect(coord.x*cellSize,coord.y*cellSize,cellSize,cellSize);
+    };
+
+    var coordIsLegel = function (tempX, tempY) {
+        console.log();
+        return !(tempX < 0 || tempX >= size || tempY < 0 || tempY >= size);
     };
 
     /**

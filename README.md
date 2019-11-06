@@ -3,7 +3,7 @@
 
 
 > 简单实现的一个生命游戏Demo
-> 演示页面 [GameOfLife](lifegame.lunzi.space)
+> 演示页面 [GameOfLife](https://lifegame.lunzi.space)
 
 `创建于2017年8月2日`  
 
